@@ -22,6 +22,9 @@ import { useLyricCache } from "./hooks/useLyricCache";
 
 const MUSIC_PLAYER_MINIMIZED_KEY = "portfolioMusicPlayerMinimized";
 
+const DEFAULT_NETEASE_PLAYLIST_ID =
+  process.env.NEXT_PUBLIC_NETEASE_PLAYLIST_ID ?? "13583418396";
+
 export function MusicPlayerProvider({ children }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -29,7 +32,7 @@ export function MusicPlayerProvider({ children }) {
   const [volume, setVolume] = useState(1);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [currentCover, setCurrentCover] = useState(null);
-  const [playlistId, setPlaylistId] = useState("13583418396"); // Default playlist ID
+  const [playlistId, setPlaylistId] = useState(DEFAULT_NETEASE_PLAYLIST_ID);
   const [showSourceSelector, setShowSourceSelector] = useState(false);
   const [currentTrackUrl, setCurrentTrackUrl] = useState(""); // Store current track URL
   const [audioQuality, setAudioQuality] = useState("lite"); // 先 64k，接口侧失败会升到 standard

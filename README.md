@@ -42,9 +42,10 @@ Report: `.next/analyze/client.html`.
 
 ## Notes
 
-- Contact form and reCAPTCHA expect `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` and your own email API route configuration if enabled.
+- **Contact form, reCAPTCHA, NetEase player:** see [docs/TEMPLATE_SETUP.md](docs/TEMPLATE_SETUP.md) for env vars, EmailJS vs `/api/email/send`, and copyright guidance.
+- **Hero 3D model (GLB, R3F):** see [docs/3D_MODEL.md](docs/3D_MODEL.md) for file layout, swapping assets, camera/light tweaks, and performance.
 - Replace every `your-username`, `your-profile`, and `example.edu` string before publishing.
-- Music player and other integrations may need API keys; keep secrets out of git.
+- Keep secrets in `.env.local` only; confirm `.gitignore` excludes `.env*`.
 
 ## Credits
 
