@@ -2,6 +2,10 @@
 
 Next.js 14 (App Router) and Tailwind CSS portfolio starter. Placeholder content uses **Usagi** (うさぎ) as a nod to _Chiikawa_ (ちいかわ) by Nagano — not an official tie-in. Fictional labels (e.g. **Carrot Valley Institute**) are intentional so you can fork without exposing real details.
 
+## Demo
+
+![Screen recording: hero with typing + 3D model, About section, NetEase music player](./public/demo.gif)
+
 ## Scope
 
 The project structure aligns with common beginner portfolio tutorials (e.g. [this walkthrough](#references)). That material covers a **minimal** multi-section page. **This repository extends that baseline** with a distinct visual system, structured data files, server routes, and interactive features listed below.
@@ -18,6 +22,19 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 🛠️ **Tooling** — Dynamic imports for heavier sections, optional webpack bundle analyzer (`ANALYZE=true`).
 
 📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, compliance) · [3D model](docs/3D_MODEL.md) · [Music player notes](docs/MUSIC_PLAYER.md).
+
+## Showing video (or motion) in this README
+
+GitHub’s README renderer **does not** support embedded iframes (e.g. YouTube `<iframe>`). These options work reliably:
+
+| Approach | Markdown example | Notes |
+|----------|------------------|--------|
+| **Animated GIF** | `![Demo](./public/demo.gif)` | This repo uses `public/demo.gif`; autoplays on GitHub—keep file size reasonable. |
+| **Link only** | `[Watch full demo on YouTube](https://www.youtube.com/watch?v=VIDEO_ID)` | Best quality; opens off-site. |
+| **Thumbnail → video** | `[![Demo thumbnail](./docs/demo-thumb.png)](https://www.youtube.com/watch?v=VIDEO_ID)` | Clickable preview image. |
+| **Repo-relative image** | `![Screenshot](./docs/screenshot.png)` | Same as GIF but static. |
+
+Optional: upload an MP4 in a GitHub **Issue** comment, copy the `https://user-images.githubusercontent.com/...mp4` URL, and try a raw `<video controls src="..."></video>` block—support can vary by viewer; **GIF or thumbnail+link** remain the most portable.
 
 ## What to customize first
 
