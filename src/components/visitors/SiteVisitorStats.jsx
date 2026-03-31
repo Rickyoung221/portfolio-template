@@ -33,6 +33,10 @@ const iconWrapClass =
 const cellClass =
   "group relative flex gap-3 sm:gap-4 bg-solarized-base3/95 p-4 sm:p-5 dark:bg-solarized-base03/95 motion-safe:transition-colors motion-safe:duration-200 motion-safe:hover:bg-solarized-base2/35 dark:motion-safe:hover:bg-solarized-base02/40";
 
+/** One-line note under Total Visitors count (first column). */
+const VISITOR_COUNT_HINT =
+  "Same IP at most once per hour—not every refresh.";
+
 const statMotion = (reduceMotion, delay = 0) => ({
   initial: reduceMotion ? false : { opacity: 0, y: 8 },
   animate: { opacity: 1, y: 0 },
@@ -163,7 +167,15 @@ export default function SiteVisitorStats() {
               </p>
               <div className="flex min-h-[3.25rem] flex-col justify-end gap-1">
                 {visitorStatus === "loading" ? (
-                  <div className="h-8 w-[11rem] max-w-full rounded-md bg-solarized-base1/18 dark:bg-solarized-base01/28 motion-safe:animate-pulse" aria-hidden />
+                  <>
+                    <div
+                      className="h-8 w-[11rem] max-w-full rounded-md bg-solarized-base1/18 dark:bg-solarized-base01/28 motion-safe:animate-pulse"
+                      aria-hidden
+                    />
+                    <p className="m-0 mt-1 text-[10px] leading-tight text-solarized-base01/75 dark:text-solarized-base1/60">
+                      {VISITOR_COUNT_HINT}
+                    </p>
+                  </>
                 ) : (
                   <>
                     <motion.p
@@ -177,12 +189,18 @@ export default function SiteVisitorStats() {
                         </span>
                       ) : null}
                     </motion.p>
-                    <p
-                      className={`${captionClass} opacity-0 pointer-events-none select-none`}
-                      aria-hidden
-                    >
-                      &nbsp;
-                    </p>
+                    {visitorStatus === "unconfigured" ? (
+                      <p
+                        className={`${captionClass} opacity-0 pointer-events-none select-none`}
+                        aria-hidden
+                      >
+                        &nbsp;
+                      </p>
+                    ) : (
+                      <p className="m-0 mt-1 text-[10px] leading-tight text-solarized-base01/75 dark:text-solarized-base1/60">
+                        {VISITOR_COUNT_HINT}
+                      </p>
+                    )}
                   </>
                 )}
               </div>
