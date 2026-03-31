@@ -17,22 +17,24 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 📌 **Experience** — Vertical **timeline** with expandable entries (`src/data/timelineItems.js`).
 - 🪟 **Draggable panels** — Hobby-style windows using `react-draggable`; reusable for galleries or other floating content.
 - 🎵 **Music** — NetEase-backed player (`/api/netease/*`): playlists, playback URLs, lyrics, quality handling, artwork; state persists across client-side navigation.
+- 🐙 **GitHub** — About-page card (`GitHubStats`): public profile, summed stars on your public repos, contribution heatmap (via [ghchart.rshah.org](https://ghchart.rshah.org/)); optional PAT for higher API limits and a yearly contribution total.
+- 👀 **Visitors** — Unique-visit counter on About (`SiteVisitorStats`) with **Upstash Redis**; `VisitorTracker` in the root layout posts once per session path. Configure REST URL + token in `.env.local` (see [Template setup](docs/TEMPLATE_SETUP.md)).
 - ✉️ **Contact** — Form with Google reCAPTCHA v2; email delivery documented for EmailJS or a server route.
 - 📚 **Content** — Data-driven education, projects, certifications/awards, and related sections (see customization list).
 - 🛠️ **Tooling** — Dynamic imports for heavier sections, optional webpack bundle analyzer (`ANALYZE=true`).
 
-📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, compliance) · [3D model](docs/3D_MODEL.md) · [Music player notes](docs/MUSIC_PLAYER.md).
+📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, **GitHub**, **Upstash visitors**, compliance) · [3D model](docs/3D_MODEL.md) · [Music player notes](docs/MUSIC_PLAYER.md).
 
 ## Showing video (or motion) in this README
 
 GitHub’s README renderer **does not** support embedded iframes (e.g. YouTube `<iframe>`). These options work reliably:
 
-| Approach | Markdown example | Notes |
-|----------|------------------|--------|
-| **Animated GIF** | `![Demo](./public/demo.gif)` | This repo uses `public/demo.gif`; autoplays on GitHub—keep file size reasonable. |
-| **Link only** | `[Watch full demo on YouTube](https://www.youtube.com/watch?v=VIDEO_ID)` | Best quality; opens off-site. |
-| **Thumbnail → video** | `[![Demo thumbnail](./docs/demo-thumb.png)](https://www.youtube.com/watch?v=VIDEO_ID)` | Clickable preview image. |
-| **Repo-relative image** | `![Screenshot](./docs/screenshot.png)` | Same as GIF but static. |
+| Approach                | Markdown example                                                                       | Notes                                                                            |
+| ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Animated GIF**        | `![Demo](./public/demo.gif)`                                                           | This repo uses `public/demo.gif`; autoplays on GitHub—keep file size reasonable. |
+| **Link only**           | `[Watch full demo on YouTube](https://www.youtube.com/watch?v=VIDEO_ID)`               | Best quality; opens off-site.                                                    |
+| **Thumbnail → video**   | `[![Demo thumbnail](./docs/demo-thumb.png)](https://www.youtube.com/watch?v=VIDEO_ID)` | Clickable preview image.                                                         |
+| **Repo-relative image** | `![Screenshot](./docs/screenshot.png)`                                                 | Same as GIF but static.                                                          |
 
 Optional: upload an MP4 in a GitHub **Issue** comment, copy the `https://user-images.githubusercontent.com/...mp4` URL, and try a raw `<video controls src="..."></video>` block—support can vary by viewer; **GIF or thumbnail+link** remain the most portable.
 
@@ -47,6 +49,8 @@ Optional: upload an MP4 in a GitHub **Issue** comment, copy the `https://user-im
 7. **`src/data/educationData.js`** — Degrees, courses, teaching (if used).
 8. **`src/data/projectData.js`** — Projects and links.
 9. **`src/data/tabData.js`** — Certifications and awards (if used).
+10. **`src/data/siteMeta.js`** — Launch date and optional visitor-count display offset (About visitor stats card).
+11. **`.env.local`** — `NEXT_PUBLIC_GITHUB_USERNAME`, optional `GITHUB_TOKEN`; `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` for the visitor counter (see [Template setup](docs/TEMPLATE_SETUP.md)).
 
 Placeholder SVGs: `public/images/` (`avatar-placeholder.svg`, `logo-template.svg`, `school-placeholder.svg`, `experience/placeholder-company.svg`).
 
@@ -78,6 +82,7 @@ Output: `.next/analyze/client.html`.
 
 - Replace placeholder strings (`your-username`, `your-profile`, `example.edu`, etc.).
 - Store secrets in `.env.local` only; verify `.gitignore` excludes `.env*`.
+- For **GitHub** and **Upstash**, set production env vars on your host and rotate any token that was ever committed or pasted in public chat.
 
 ## Credits
 
@@ -91,7 +96,7 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 
 ### Documentation (this repository)
 
-- [Template setup](docs/TEMPLATE_SETUP.md) — Contact (reCAPTCHA, EmailJS, `/api/email/send`), NetEase player, environment variables, copyright.
+- [Template setup](docs/TEMPLATE_SETUP.md) — Contact (reCAPTCHA, EmailJS, `/api/email/send`), NetEase player, GitHub stats, Upstash visitor counter, environment variables, copyright.
 - [3D model](docs/3D_MODEL.md) — GLB workflow, scene setup, performance.
 - [Music player](docs/MUSIC_PLAYER.md) — UI-oriented notes (NetEase operations covered in template setup).
 
@@ -105,6 +110,7 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 ### Service consoles (configuration)
 
 - [Google reCAPTCHA](https://www.google.com/recaptcha/admin) · [EmailJS](https://www.emailjs.com/)
+- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts) · [GitHub tokens](https://github.com/settings/tokens) (optional fine-grained or classic PAT for `/api/github/stats`)
 
 ### Theme and IP
 

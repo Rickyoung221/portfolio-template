@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import { MusicPlayerProvider } from "@/components/music-player/MusicPlayer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import CustomCursor from "@/components/CustomCursor";
+import VisitorTracker from "@/components/visitors/VisitorTracker";
 
 export const metadata = {
   title: "Portfolio Template (Chiikawa Usagi theme)",
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
               <Footer />
+              <VisitorTracker />
               <CustomCursor />
             </div>
           </MusicPlayerProvider>
