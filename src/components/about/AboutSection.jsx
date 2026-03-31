@@ -10,6 +10,8 @@ import { motion } from "framer-motion";
 import { MdWork } from "react-icons/md";
 import { GiSkills } from "react-icons/gi";
 import { FaGraduationCap, FaCertificate, FaTrophy } from "react-icons/fa";
+import GitHubStats from "@/components/about/GitHubStats";
+import SiteVisitorStats from "@/components/visitors/SiteVisitorStats";
 
 const AboutSection = () => {
   const [tab, setTab] = useState("experience");
@@ -57,10 +59,11 @@ const AboutSection = () => {
                 <span className="font-semibold">Chiikawa</span> (ちいかわ) by
                 Nagano — used here only as a{" "}
                 <span className="font-semibold">template persona</span>. In real
-                life, replace this with your name and story. The silly school name{" "}
-                <span className="font-semibold">Carrot Valley Institute</span> and{" "}
-                <span className="font-semibold">Example City</span> are placeholders
-                too.
+                life, replace this with your name and story. The silly school
+                name{" "}
+                <span className="font-semibold">Carrot Valley Institute</span>{" "}
+                and <span className="font-semibold">Example City</span> are
+                placeholders too.
               </p>
 
               <p>
@@ -82,16 +85,17 @@ const AboutSection = () => {
 
               <p>
                 I have listed{" "}
-                <span className="font-semibold theme-primary">sample</span> roles
-                and projects in the timeline so the layout stays interesting.
-                Delete what you do not need and paste your true milestones
-                instead.
+                <span className="font-semibold theme-primary">sample</span>{" "}
+                roles and projects in the timeline so the layout stays
+                interesting. Delete what you do not need and paste your true
+                milestones instead.
               </p>
 
               <p>
                 Outside of code, the Chiikawa Usagi bit pairs well with carrots,
-                curry rice, and yelling &quot;ウラ&quot; for no reason — all joke
-                filler for this template. Use this space for your real hobbies.
+                curry rice, and yelling &quot;ウラ&quot; for no reason — all
+                joke filler for this template. Use this space for your real
+                hobbies.
               </p>
               <p className="mt-4 sm:mt-5 text-sm sm:text-base not-italic">
                 <Link
@@ -109,6 +113,14 @@ const AboutSection = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="w-full h-px my-8 theme-divider"></div>
+
+        <GitHubStats />
+
+        <div className="w-full mt-8 sm:mt-10">
+          <SiteVisitorStats />
         </div>
 
         <div className="w-full h-px my-8 theme-divider"></div>
