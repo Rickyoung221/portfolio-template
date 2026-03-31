@@ -110,7 +110,8 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 ### Service consoles (configuration)
 
 - [Google reCAPTCHA](https://www.google.com/recaptcha/admin) · [EmailJS](https://www.emailjs.com/)
-- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts) · [GitHub tokens](https://github.com/settings/tokens) (optional fine-grained or classic PAT for `/api/github/stats`)
+- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts)
+- [GitHub tokens](https://github.com/settings/tokens) (optional fine-grained or classic PAT for `/api/github/stats`)
 
 ### Theme and IP
 
