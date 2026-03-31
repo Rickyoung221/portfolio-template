@@ -7,7 +7,7 @@ const PROJECT_DATA = [
       "A Next.js portfolio with animations, themes, and modular sections. Fork the repo and replace every placeholder with your own content, images, and links.",
     image: "/images/projects/portfolio.webp",
     tag: ["All", "Web"],
-    gitUrl: "https://github.com/your-username/your-portfolio",
+    gitUrl: "https://github.com/Rickyoung221/portfolio-template",
     previewUrl: "/",
   },
   {

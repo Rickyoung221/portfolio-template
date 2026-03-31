@@ -1,6 +1,7 @@
 "use client";
 import React, { memo } from "react";
-import { CodeBracketIcon, PlayCircleIcon } from "@heroicons/react/24/outline";
+import { PlayCircleIcon } from "@heroicons/react/24/outline";
+import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
@@ -69,13 +70,14 @@ const ProjectCard = memo(({ imgUrl, title, description, gitUrl, playUrl }) => {
                   className={iconLinkClass(isDarkMode)}
                   aria-label={`View ${title} source on GitHub`}
                 >
-                  <CodeBracketIcon
+                  <FaGithub
                     className={`h-8 w-8 sm:h-10 sm:w-10 cursor-pointer
                     ${
                       isDarkMode
                         ? "text-solarized-base1 group-hover/link:text-solarized-base3"
                         : "text-solarized-base01 group-hover/link:text-solarized-base03"
                     }`}
+                    aria-hidden
                   />
                 </Link>
               )}

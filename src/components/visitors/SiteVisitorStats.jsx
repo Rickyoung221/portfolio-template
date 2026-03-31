@@ -47,6 +47,20 @@ const statMotion = (reduceMotion, delay = 0) => ({
   },
 });
 
+const visitorHintClassName =
+  "m-0 mt-1 text-[10px] leading-tight text-solarized-base01/75 dark:text-solarized-base1/60";
+
+function StatRowSpacer() {
+  return (
+    <p
+      className={`${captionClass} opacity-0 pointer-events-none select-none`}
+      aria-hidden
+    >
+      &nbsp;
+    </p>
+  );
+}
+
 export default function SiteVisitorStats() {
   const reduceMotion = useReducedMotion();
   const [visitorStatus, setVisitorStatus] = useState("loading");
@@ -101,13 +115,11 @@ export default function SiteVisitorStats() {
     visitorStatus === "success" ? count + VISITOR_COUNT_DISPLAY_OFFSET : null;
 
   const visitsNumberDisplay =
-    visitorStatus === "success"
+    visitorStatus === "success" && totalVisits != null
       ? totalVisits.toLocaleString("en-US")
-      : visitorStatus === "error"
-        ? "—"
-        : visitorStatus === "unconfigured"
-          ? "—"
-          : null;
+      : visitorStatus === "loading"
+        ? null
+        : "—";
 
   const uniqueVisitsCaption =
     visitorStatus === "success"
@@ -172,9 +184,7 @@ export default function SiteVisitorStats() {
                       className="h-8 w-[11rem] max-w-full rounded-md bg-solarized-base1/18 dark:bg-solarized-base01/28 motion-safe:animate-pulse"
                       aria-hidden
                     />
-                    <p className="m-0 mt-1 text-[10px] leading-tight text-solarized-base01/75 dark:text-solarized-base1/60">
-                      {VISITOR_COUNT_HINT}
-                    </p>
+                    <p className={visitorHintClassName}>{VISITOR_COUNT_HINT}</p>
                   </>
                 ) : (
                   <>
@@ -190,16 +200,9 @@ export default function SiteVisitorStats() {
                       ) : null}
                     </motion.p>
                     {visitorStatus === "unconfigured" ? (
-                      <p
-                        className={`${captionClass} opacity-0 pointer-events-none select-none`}
-                        aria-hidden
-                      >
-                        &nbsp;
-                      </p>
+                      <StatRowSpacer />
                     ) : (
-                      <p className="m-0 mt-1 text-[10px] leading-tight text-solarized-base01/75 dark:text-solarized-base1/60">
-                        {VISITOR_COUNT_HINT}
-                      </p>
+                      <p className={visitorHintClassName}>{VISITOR_COUNT_HINT}</p>
                     )}
                   </>
                 )}
@@ -227,12 +230,7 @@ export default function SiteVisitorStats() {
                 >
                   {projectCount.toLocaleString("en-US")}
                 </motion.p>
-                <p
-                  className={`${captionClass} opacity-0 pointer-events-none select-none`}
-                  aria-hidden
-                >
-                  &nbsp;
-                </p>
+                <StatRowSpacer />
               </div>
             </div>
           </article>
@@ -273,12 +271,7 @@ export default function SiteVisitorStats() {
                     )}
                   </time>
                 </motion.p>
-                <p
-                  className={`${captionClass} opacity-0 pointer-events-none select-none`}
-                  aria-hidden
-                >
-                  &nbsp;
-                </p>
+                <StatRowSpacer />
               </div>
             </div>
           </article>
