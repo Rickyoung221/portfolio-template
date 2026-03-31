@@ -97,7 +97,6 @@ export default function GitHubStats({ username = defaultUsername }) {
                     width={100}
                     height={100}
                     className="object-cover w-full h-full"
-                    unoptimized={false}
                   />
                 </div>
               </div>
