@@ -59,6 +59,10 @@ const nextConfig = {
         hostname: "p2.music.126.net",
       },
       {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+      {
         protocol: "http",
         hostname: "p1.music.126.net",
       },

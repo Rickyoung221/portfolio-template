@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { MdWork } from "react-icons/md";
 import { GiSkills } from "react-icons/gi";
 import { FaGraduationCap, FaCertificate, FaTrophy } from "react-icons/fa";
+import GitHubStats from "@/components/about/GitHubStats";
 
 const AboutSection = () => {
   const [tab, setTab] = useState("experience");
@@ -110,6 +111,10 @@ const AboutSection = () => {
             </div>
           </div>
         </div>
+
+        <div className="w-full h-px my-8 theme-divider"></div>
+
+        <GitHubStats />
 
         <div className="w-full h-px my-8 theme-divider"></div>
 
