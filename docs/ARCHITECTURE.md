@@ -1,114 +1,108 @@
 # Architecture
 
-High-level diagrams for **portfolio-website-template** (Next.js 14 App Router). Mermaid blocks render on GitHub; for local editing, use a Mermaid-compatible preview or [mermaid.live](https://mermaid.live).
+High-level diagrams for **portfolio-website-template** (Next.js 14 App Router).
+
+**Why plain text:** GitHub’s Mermaid renderer sometimes fails to load (`viewscreen.githubusercontent.com` chunk errors). Everything below is **ASCII and Markdown only**—it renders in any viewer without JavaScript diagrams.
+
+---
 
 ## System overview
 
-Client UI, Next.js boundaries, data/config, and external services.
+Browser UI talks to the Next.js app; route handlers use `src/lib` and optional external APIs.
 
-```mermaid
-flowchart TB
-  subgraph Client["Browser"]
-    UI["React pages & components"]
-    R3F["Three.js / React Three Fiber\n(Hero 3D model)"]
-    UI --- R3F
-  end
-
-  subgraph NextApp["Next.js App Router"]
-    Pages["Pages: /, /about, /projects, /hobbies, /contact"]
-    Layout["RootLayout\nThemeProvider · MusicPlayerProvider\nNavbar · Footer · VisitorTracker · CustomCursor"]
-    API["Route handlers /api/*"]
-    Pages --> Layout
-    Layout --> UI
-  end
-
-  subgraph DataLayer["Data & config"]
-    StaticData["src/data/*\nprojects, skills, timeline, site meta"]
-    ThemeCtx["ThemeContext"]
-    Lib["src/lib/*\nRedis helpers, visitor constants, site age, etc."]
-  end
-
-  subgraph External["External services"]
-    Redis[(Upstash Redis\nrate limits & visitors)]
-    GH["GitHub API\n(stats)"]
-    Netease["NetEase Cloud Music API\n(NeteaseCloudMusicApi)"]
-  end
-
-  Client --> NextApp
-  UI --> StaticData
-  UI --> ThemeCtx
-  API --> Lib
-  Lib --> Redis
-  API --> GH
-  API --> Netease
+```
+                         ┌─────────────────────────────────┐
+                         │            Browser               │
+                         │  React UI · R3F / Three.js hero  │
+                         └───────────────┬─────────────────┘
+                                         │
+                                         ▼
+                         ┌─────────────────────────────────┐
+                         │      Next.js App Router          │
+                         │  pages + RootLayout + /api/*     │
+                         └───────────────┬─────────────────┘
+                                         │
+           ┌─────────────────────────────┼─────────────────────────────┐
+           ▼                             ▼                             ▼
+    ┌──────────────┐              ┌──────────────┐              ┌──────────────┐
+    │  src/data/*  │              │ ThemeContext │              │  src/lib/*   │
+    │  site config │              │              │              │ Redis, utils │
+    └──────────────┘              └──────────────┘              └──────┬───────┘
+                                                                       │
+           ┌─────────────────────────────┬─────────────────────────────┤
+           ▼                             ▼                             ▼
+    ┌──────────────┐              ┌──────────────┐              ┌──────────────┐
+    │ Upstash Redis│              │  GitHub API  │              │ NetEase API  │
+    │ (optional)   │              │ (stats)      │              │ (music)      │
+    └──────────────┘              └──────────────┘              └──────────────┘
 ```
 
-## Routes and home page composition
+**Relationships (summary)**
 
-```mermaid
-flowchart LR
-  subgraph Routes["Routes"]
-    H["/"]
-    A["/about"]
-    P["/projects"]
-    Ho["/hobbies"]
-    C["/contact"]
-  end
+| From | To |
+|------|-----|
+| Page components | `src/data/*`, `ThemeContext` |
+| `/api/*` handlers | `src/lib/*` (e.g. Redis, rate limits) |
+| Visitor / limit logic | Upstash Redis when env vars are set |
+| `/api/github/stats` | GitHub |
+| `/api/netease/*` | NetEase (via `NeteaseCloudMusicApi`) |
 
-  subgraph HomeBlocks["Home (/) sections"]
-    Hero["HeroSection\n+ HeroModel / Scene"]
-    About["AboutSection\n+ GitHubStats, etc."]
-    Proj["ProjectsSection"]
-    Email["EmailSection"]
-  end
+---
 
-  H --> Hero
-  H --> About
-  H --> Proj
-  H --> Email
+## Routes and home page
+
+**App routes**
+
+| Path | Role |
+|------|------|
+| `/` | Landing: hero, about preview, projects, contact email section |
+| `/about` | About page |
+| `/projects` | Projects listing |
+| `/hobbies` | Hobbies / draggable windows |
+| `/contact` | Contact page |
+
+**Home (`/`) section order (simplified)**
+
+```
+  /
+  ├── HeroSection          (HeroModel / 3D scene)
+  ├── AboutSection         (e.g. GitHubStats)
+  ├── ProjectsSection      (dynamic import, client-only where configured)
+  └── EmailSection
 ```
 
-## API routes and dependencies
+---
 
-```mermaid
-flowchart LR
-  V["GET/POST /api/visitors"]
-  G["GET /api/github/stats"]
-  N1["/api/netease/playlist"]
-  N2["/api/netease/song/detail"]
-  N3["/api/netease/song/url"]
-  N4["/api/netease/lyric"]
+## API routes and backends
 
-  V --> Redis[(Upstash Redis)]
-  G --> GH[GitHub]
-  N1 & N2 & N3 & N4 --> NM[NetEase]
-```
+| API route | Backend / purpose |
+|-----------|-------------------|
+| `GET` / `POST` `/api/visitors` | Upstash Redis (unique visits, rate limits) |
+| `GET` `/api/github/stats` | GitHub (public profile / repo stats) |
+| `/api/netease/playlist` | NetEase |
+| `/api/netease/song/detail` | NetEase |
+| `/api/netease/song/url` | NetEase |
+| `/api/netease/lyric` | NetEase |
+
+---
 
 ## Root layout shell
 
-Global providers and chrome around `{children}`.
+Nesting around `{children}` (see `src/app/layout.js`).
 
-```mermaid
-flowchart TB
-  Root["html / body"]
-  TP["ThemeProvider"]
-  MP["MusicPlayerProvider"]
-  Shell["theme wrapper div"]
-  N["Navbar"]
-  M["main {children}"]
-  F["Footer"]
-  VT["VisitorTracker"]
-  CC["CustomCursor"]
-
-  Root --> TP
-  TP --> MP
-  MP --> Shell
-  Shell --> N
-  Shell --> M
-  Shell --> F
-  Shell --> VT
-  Shell --> CC
 ```
+html / body
+└── ThemeProvider
+    └── MusicPlayerProvider
+        └── theme wrapper div
+            ├── Navbar
+            ├── main  →  {children}
+            ├── Footer
+            ├── VisitorTracker
+            └── CustomCursor
+```
+
+---
 
 ## Implementation notes
 
@@ -117,3 +111,9 @@ flowchart TB
 - **Optional Redis:** Visitor APIs and rate limiting use Upstash when `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are set; otherwise routes degrade gracefully where implemented.
 
 See [Template setup](TEMPLATE_SETUP.md) for environment variables and operational details.
+
+---
+
+### Optional: Mermaid elsewhere
+
+If you want interactive Mermaid diagrams locally, paste the same structure into [mermaid.live](https://mermaid.live) or use a VS Code Mermaid extension; this file intentionally avoids fenced `mermaid` blocks so GitHub’s README/doc view stays error-free.

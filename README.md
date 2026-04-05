@@ -97,7 +97,7 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 ### Documentation (this repository)
 
 - [Template setup](docs/TEMPLATE_SETUP.md) — Contact (reCAPTCHA, EmailJS, `/api/email/send`), NetEase player, GitHub stats, Upstash visitor counter, environment variables, copyright.
-- [Architecture](docs/ARCHITECTURE.md) — Mermaid diagrams: app shell, routes, APIs, and external services.
+- [Architecture](docs/ARCHITECTURE.md) — ASCII and tables: app shell, routes, APIs, and external services (no Mermaid; renders without GitHub’s diagram chunk).
 - [3D model](docs/3D_MODEL.md) — GLB workflow, scene setup, performance.
 - [Music player](docs/MUSIC_PLAYER.md) — UI-oriented notes (NetEase operations covered in template setup).
 
