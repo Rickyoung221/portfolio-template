@@ -25,18 +25,6 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 
 📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) · [Architecture](docs/ARCHITECTURE.md) · [3D model](docs/3D_MODEL.md) · [Music player](docs/MUSIC_PLAYER.md).
 
-## Showing video (or motion) in this README
-
-GitHub’s README renderer **does not** support embedded iframes (e.g. YouTube `<iframe>`). These options work reliably:
-
-| Approach                | Markdown example                                                                       | Notes                                                                            |
-| ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **Animated GIF**        | `![Demo](./public/demo.gif)`                                                           | This repo uses `public/demo.gif`; autoplays on GitHub—keep file size reasonable. |
-| **Link only**           | `[Watch full demo on YouTube](https://www.youtube.com/watch?v=VIDEO_ID)`               | Best quality; opens off-site.                                                    |
-| **Thumbnail → video**   | `[![Demo thumbnail](./docs/demo-thumb.png)](https://www.youtube.com/watch?v=VIDEO_ID)` | Clickable preview image.                                                         |
-| **Repo-relative image** | `![Screenshot](./docs/screenshot.png)`                                                 | Same as GIF but static.                                                          |
-
-Optional: upload an MP4 in a GitHub **Issue** comment, copy the `https://user-images.githubusercontent.com/...mp4` URL, and try a raw `<video controls src="..."></video>` block—support can vary by viewer; **GIF or thumbnail+link** remain the most portable.
 
 ## What to customize first
 
@@ -111,7 +99,8 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 ### Service consoles (configuration)
 
 - [Google reCAPTCHA](https://www.google.com/recaptcha/admin) · [EmailJS](https://www.emailjs.com/)
-- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts) · [GitHub tokens](https://github.com/settings/tokens) (optional fine-grained or classic PAT for `/api/github/stats`)
+- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts)
+- [GitHub tokens](https://github.com/settings/tokens) (optional fine-grained or classic PAT for `/api/github/stats`)
 
 ### Theme and IP
 
