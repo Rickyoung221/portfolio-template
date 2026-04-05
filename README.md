@@ -23,7 +23,7 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 📚 **Content** — Data-driven education, projects, certifications/awards, and related sections (see customization list).
 - 🛠️ **Tooling** — Dynamic imports for heavier sections, optional webpack bundle analyzer (`ANALYZE=true`).
 
-📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, **GitHub**, **Upstash visitors**, compliance) · [3D model](docs/3D_MODEL.md) · [Music player notes](docs/MUSIC_PLAYER.md).
+📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, **GitHub**, **Upstash visitors**, compliance) · [Architecture](docs/ARCHITECTURE.md) (system diagrams) · [3D model](docs/3D_MODEL.md) · [Music player notes](docs/MUSIC_PLAYER.md).
 
 
 ## What to customize first
@@ -85,6 +85,7 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 ### Documentation (this repository)
 
 - [Template setup](docs/TEMPLATE_SETUP.md) — Contact (reCAPTCHA, EmailJS, `/api/email/send`), NetEase player, GitHub stats, Upstash visitor counter, environment variables, copyright.
+- [Architecture](docs/ARCHITECTURE.md) — Mermaid diagrams: app shell, routes, APIs, and external services.
 - [3D model](docs/3D_MODEL.md) — GLB workflow, scene setup, performance.
 - [Music player](docs/MUSIC_PLAYER.md) — UI-oriented notes (NetEase operations covered in template setup).
 
