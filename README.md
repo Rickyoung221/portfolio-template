@@ -23,7 +23,11 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 📚 **Content** — Data-driven education, projects, certifications/awards, and related sections (see customization list).
 - 🛠️ **Tooling** — Dynamic imports for heavier sections, optional webpack bundle analyzer (`ANALYZE=true`).
 
-📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, **GitHub**, **Upstash visitors**, compliance) · [Architecture](docs/ARCHITECTURE.md) (system diagrams) · [3D model](docs/3D_MODEL.md) · [Music player notes](docs/MUSIC_PLAYER.md).
+📖 **Documentation:** 
+- [Template setup](docs/TEMPLATE_SETUP.md) (env, email, NetEase, **GitHub**, **Upstash visitors**, compliance) 
+- [Architecture](docs/ARCHITECTURE.md) (system diagrams) 
+-  [3D model](docs/3D_MODEL.md)
+-   [Music player notes](docs/MUSIC_PLAYER.md).
 
 
 ## What to customize first
