@@ -1,8 +1,8 @@
 # Install dependencies and run production build on supported Node versions.
 #
-# Full Tina Cloud build needs repository secrets TINA_TOKEN and NEXT_PUBLIC_TINA_CLIENT_ID
-# (or variable NEXT_PUBLIC_TINA_CLIENT_ID — public id, fine as a non-secret variable).
-# If those are missing, CI runs `npm run build:local` (local Tina, no Cloud) so forks/PRs can still verify the app builds.
+# If TINA_TOKEN and NEXT_PUBLIC_TINA_CLIENT_ID are both set (secret and/or variable for the
+# public client id), runs `npm run build` (Tina Cloud). Otherwise runs `npm run build:local`
+# so CI passes without secrets (forks, template defaults). Production (e.g. Vercel) should use Cloud.
 
 name: Node.js CI
 
@@ -31,16 +31,16 @@ jobs:
         cache: 'npm'
     - run: npm ci
 
-    # Tina Cloud: needs token + client id (secret and/or variable for client id).
-    - name: Build (Tina Cloud)
-      if: ${{ secrets.TINA_TOKEN != '' && (secrets.NEXT_PUBLIC_TINA_CLIENT_ID != '' || vars.NEXT_PUBLIC_TINA_CLIENT_ID != '') }}
-      run: npm run build --if-present
+    - name: Build
       env:
         NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID || vars.NEXT_PUBLIC_TINA_CLIENT_ID }}
         TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
         NEXT_PUBLIC_TINA_BRANCH: ${{ vars.NEXT_PUBLIC_TINA_BRANCH }}
-
-    # No Cloud credentials: local GraphQL build (good for CI without secrets; production deploys should use Cloud).
-    - name: Build (Tina local, no Cloud)
-      if: ${{ !(secrets.TINA_TOKEN != '' && (secrets.NEXT_PUBLIC_TINA_CLIENT_ID != '' || vars.NEXT_PUBLIC_TINA_CLIENT_ID != '')) }}
-      run: npm run build:local --if-present
+      run: |
+        if [ -n "$TINA_TOKEN" ] && [ -n "$NEXT_PUBLIC_TINA_CLIENT_ID" ]; then
+          echo "Using Tina Cloud build (credentials present)."
+          npm run build --if-present
+        else
+          echo "No full Tina Cloud credentials; using local Tina build (see package.json build:local)."
+          npm run build:local --if-present
+        fi
