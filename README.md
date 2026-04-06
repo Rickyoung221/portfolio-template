@@ -4,6 +4,8 @@ Next.js 14 (App Router) and Tailwind CSS portfolio starter. Placeholder content 
 
 ## Demo
 
+**Live:** [https://portfolio-template-usagi.vercel.app/](https://portfolio-template-usagi.vercel.app/)
+
 ![Screen recording: hero with typing + 3D model, About section, NetEase music player](./public/demo.gif)
 
 ## Scope

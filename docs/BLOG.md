@@ -12,10 +12,12 @@ Detailed steps, environment variables, and troubleshooting live in the guides be
 
 ### Reading guides in the browser
 
-After `npm run dev`, open the same articles on the site (Markdown rendered as posts):
+This template’s deployed **base URL** is **[https://portfolio-template-usagi.vercel.app/](https://portfolio-template-usagi.vercel.app/)**; after you fork, point readers to your own host instead. Guides as rendered posts:
 
-- [http://localhost:3000/posts/guides/tina-blog](http://localhost:3000/posts/guides/tina-blog)
-- [http://localhost:3000/posts/guides/setup-hub](http://localhost:3000/posts/guides/setup-hub)
+- [Tina blog setup](https://portfolio-template-usagi.vercel.app/posts/guides/tina-blog)
+- [Project setup hub](https://portfolio-template-usagi.vercel.app/posts/guides/setup-hub)
+
+When running **`npm run dev`** locally, use **`http://localhost:3000`** with the same paths (e.g. `/posts/guides/tina-blog`).
 
 ## Routes (quick reference)
 
