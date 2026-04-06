@@ -12,6 +12,10 @@
 /.next/
 /out/
 
+# Tina CMS (generated admin bundle; dev uses Vite on :4001)
+public/admin
+tina/tina.local.json
+
 # production
 /build
 

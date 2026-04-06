@@ -1,6 +1,55 @@
 # Template setup guide
 
-This project ships with a contact form, an optional music player, an optional **GitHub** profile card, and an optional **visitor counter** (Upstash Redis). Follow the sections below to wire them up safely. **You are responsible for complying with copyright, terms of service, and privacy laws** in your jurisdiction.
+This project ships with a contact form, an optional music player, an optional **GitHub** profile card, an optional **visitor counter** (Upstash Redis), and an optional **blog** (Tina CMS). Follow the sections below to wire them up safely. **You are responsible for complying with copyright, terms of service, and privacy laws** in your jurisdiction.
+
+---
+
+## Blog (Tina CMS)
+
+Posts live in **`content/post/`** as Markdown (`.md`). Subfolders appear as grouped sections on **`/posts`**. The visual editor is at **`/admin`** (after a production build) or via the Tina dev server when running `npm run dev`.
+
+### 1. Create a Tina Cloud project
+
+1. Sign in at **[app.tina.io](https://app.tina.io)** and create a project.
+2. Connect the **same GitHub repository** you deploy from (so Tina can index content on the branch you edit).
+3. Copy the **Client ID** from the Tina dashboard.
+
+### 2. Create a token for builds
+
+1. In Tina → your project → **Tokens** (or equivalent), create a **read/write** token for CLI / CI.
+2. Store it only in **`.env.local`** (local) and your host’s **Environment Variables** (Vercel, etc.) as **`TINA_TOKEN`**. Do not commit it.
+
+### 3. Local environment
+
+In **`.env.local`** (never commit):
+
+```bash
+NEXT_PUBLIC_TINA_CLIENT_ID=your-client-id-uuid
+TINA_TOKEN=your_tina_token
+# Optional; defaults to your current git branch / Vercel’s git ref
+# NEXT_PUBLIC_TINA_BRANCH=main
+```
+
+Alternatively, for **client id only** (some setups), copy `tina/tina.local.example.json` → **`tina/tina.local.json`** (gitignored) and set `"clientId"`.
+
+### 4. Commands
+
+- **`npm run dev`** — Tina dev (GraphQL on port **4001**) + Next.js. Deletes stale `public/admin` so the admin UI talks to the local schema.
+- **`npm run build`** — Runs **`tinacms build`** then **`next build`**. Requires **`TINA_TOKEN`** and **`NEXT_PUBLIC_TINA_CLIENT_ID`** in the environment (e.g. Vercel). Outputs the static admin bundle under **`public/admin/`**.
+
+### 5. GitHub Actions
+
+The workflow runs **`npm run build`**. Add repository **secrets**: **`NEXT_PUBLIC_TINA_CLIENT_ID`** and **`TINA_TOKEN`**. Optionally set a repository **variable** **`NEXT_PUBLIC_TINA_BRANCH`** (e.g. `main`). Forks without these secrets will fail the build until configured.
+
+### 6. Paths and non-ASCII folder names
+
+Use **Unicode folder/file names** in the repo (e.g. `content/post/notes/café.md`). The template’s **`ui.router`** and `/posts` links use **unencoded** path segments so Tina Admin’s hash URL matches GraphQL `relativePath`. See `src/lib/blog-path.js`.
+
+### 7. Generated files
+
+- **`tina/tina-lock.json`** — Commit after schema changes; keeps Tina Cloud in sync with your collections.
+- **`tina/__generated__/`** — The repo includes a **local-dev** GraphQL client (`http://localhost:4001/graphql`). Running **`npm run build`** on the host (Vercel, etc.) runs **`tinacms build` first**, which **overwrites** this folder with the **Tina Cloud** endpoint and a read-only token as needed.
+- **`public/admin`** — Gitignored; created by **`tinacms build`** (not by `tinacms dev`).
 
 ---
 
@@ -167,6 +216,9 @@ Add the **same two variables** in your host’s **Environment Variables** UI for
 
 | Variable                                     | Where                       | Purpose                                                                 |
 | -------------------------------------------- | --------------------------- | ----------------------------------------------------------------------- |
+| `NEXT_PUBLIC_TINA_CLIENT_ID`                 | Client / Tina CLI           | Tina Cloud project client id (blog + `/admin`)                          |
+| `TINA_TOKEN`                                 | Server / Tina CLI           | Tina token for `tinacms build` and schema sync                          |
+| `NEXT_PUBLIC_TINA_BRANCH` (optional)         | Client / Tina               | Content branch; else git / Vercel ref                                   |
 | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`             | Client                      | reCAPTCHA widget                                                        |
 | `RECAPTCHA_SECRET_KEY` (if used)             | Server only                 | Verify token in API route                                               |
 | EmailJS / SMTP / provider keys               | Server or client per design | Sending mail                                                            |

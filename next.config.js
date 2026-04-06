@@ -92,6 +92,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: "/admin",
+        destination: "/admin/index.html",
+      },
+      {
         source: "/recaptcha/api.js",
         destination: "https://www.google.com/recaptcha/api.js",
       },

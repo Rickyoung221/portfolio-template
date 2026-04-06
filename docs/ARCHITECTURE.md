@@ -9,6 +9,9 @@ Next.js 14 App Router. [Mermaid on GitHub](https://docs.github.com/en/get-starte
 | `/` | Hero → About → Projects → Email (see `src/app/page.js`) |
 | `/about` | About page |
 | `/projects` | Projects listing |
+| `/posts` | Blog index (Tina `content/post/`) |
+| `/posts/…` | Blog post (catch-all; supports subfolders / Unicode paths) |
+| `/admin` | Tina CMS (rewrites to `public/admin/index.html` after `tinacms build`) |
 | `/hobbies` | Draggable windows |
 | `/contact` | Contact page |
 

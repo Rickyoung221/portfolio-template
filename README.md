@@ -20,6 +20,7 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 🐙 **GitHub** — About-page card (`GitHubStats`): public profile, summed stars on your public repos, contribution heatmap (via [ghchart.rshah.org](https://ghchart.rshah.org/)); optional PAT for higher API limits and a yearly contribution total.
 - 👀 **Visitors** — Unique-visit counter on About (`SiteVisitorStats`) with **Upstash Redis**; `VisitorTracker` in the root layout posts once per session path. Configure REST URL + token in `.env.local` (see [Template setup](docs/TEMPLATE_SETUP.md)).
 - ✉️ **Contact** — Form with Google reCAPTCHA v2; email delivery documented for EmailJS or a server route.
+- 📝 **Blog** — Markdown posts under `content/post/` via [Tina CMS](https://tina.io): `/posts` listing (folder sections, optional LeetCode-style icons), `/posts/…` pages, `/admin` editor. Requires Tina Cloud env vars (see [Template setup](docs/TEMPLATE_SETUP.md)).
 - 📚 **Content** — Data-driven education, projects, certifications/awards, and related sections (see customization list).
 - 🛠️ **Tooling** — Dynamic imports for heavier sections, optional webpack bundle analyzer (`ANALYZE=true`).
 
@@ -38,7 +39,7 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 8. **`src/data/projectData.js`** — Projects and links.
 9. **`src/data/tabData.js`** — Certifications and awards (if used).
 10. **`src/data/siteMeta.js`** — Launch date and optional visitor-count display offset (About visitor stats card).
-11. **`.env.local`** — `NEXT_PUBLIC_GITHUB_USERNAME`, optional `GITHUB_TOKEN`; `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` for the visitor counter (see [Template setup](docs/TEMPLATE_SETUP.md)).
+11. **`.env.local`** — Tina (`NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN`) for blog + admin; `NEXT_PUBLIC_GITHUB_USERNAME`, optional `GITHUB_TOKEN`; `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` for the visitor counter (see [Template setup](docs/TEMPLATE_SETUP.md)).
 
 Placeholder SVGs: `public/images/` (`avatar-placeholder.svg`, `logo-template.svg`, `school-placeholder.svg`, `experience/placeholder-company.svg`).
 
@@ -46,17 +47,20 @@ Placeholder SVGs: `public/images/` (`avatar-placeholder.svg`, `logo-template.svg
 
 ```bash
 npm install
+# Add Tina client id (and token for some flows) per docs/TEMPLATE_SETUP.md — or use tina/tina.local.json for the client id only.
 npm run dev
 ```
 
-[http://localhost:3000](http://localhost:3000)
+Runs Tina CLI + Next on [http://localhost:3000](http://localhost:3000) (GraphQL dev server on port 4001).
 
 ## Production
 
 ```bash
-npm run build
+npm run build   # tinacms build (needs TINA_TOKEN) + next build
 npm start
 ```
+
+Set `NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN`, and optional `NEXT_PUBLIC_TINA_BRANCH` on your host (e.g. Vercel).
 
 ## Bundle analyzer
 
