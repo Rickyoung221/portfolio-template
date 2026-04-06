@@ -67,6 +67,10 @@ const nextConfig = {
         hostname: "i.redd.it",
       },
       {
+        protocol: "https",
+        hostname: "static.wikitide.net",
+      },
+      {
         protocol: "http",
         hostname: "p1.music.126.net",
       },

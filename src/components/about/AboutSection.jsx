@@ -13,10 +13,19 @@ import { FaGraduationCap, FaCertificate, FaTrophy } from "react-icons/fa";
 import GitHubStats from "@/components/about/GitHubStats";
 import SiteVisitorStats from "@/components/visitors/SiteVisitorStats";
 
+/** Default: Usagi name card (Chiikawa Wiki / WikiTide). Override with NEXT_PUBLIC_ABOUT_AVATAR_URL. */
+const DEFAULT_ABOUT_AVATAR =
+  "https://static.wikitide.net/chiikawawiki/b/bf/Characters%2BUSAGI%2Bphonetic%2Band%2Bname%2Bcopy.png";
+
 const AboutSection = () => {
   const [tab, setTab] = useState("experience");
   const [isPending, startTransition] = useTransition();
   const { isDarkMode } = useTheme();
+
+  const aboutAvatarSrc =
+    (typeof process.env.NEXT_PUBLIC_ABOUT_AVATAR_URL === "string" &&
+      process.env.NEXT_PUBLIC_ABOUT_AVATAR_URL.trim()) ||
+    DEFAULT_ABOUT_AVATAR;
 
   const handleTabChange = (id) => {
     startTransition(() => {
@@ -33,69 +42,80 @@ const AboutSection = () => {
     >
       <div className="flex flex-col items-center justify-center w-full max-w-5xl">
         <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 md:items-start">
-          <div className="md:col-span-4 flex justify-center md:justify-start md:sticky md:top-24 shrink-0">
+          <div className="md:col-span-4 flex flex-col justify-center md:justify-start md:sticky md:top-24 shrink-0">
             <div className="w-full max-w-[300px] relative rounded-xl overflow-hidden theme-shadow ring-1 ring-black/[0.06] dark:ring-white/10">
               <Image
-                src="/images/avatar-placeholder.svg"
-                alt="Profile placeholder — Chiikawa Usagi (うさぎ) theme for this template"
+                src={aboutAvatarSrc}
+                alt="Usagi — character name card (Chiikawa)"
                 width={300}
                 height={300}
                 priority
-                className="w-full h-auto rounded-xl transition-transform duration-300 hover:scale-[1.02]"
-                unoptimized
+                className="w-full h-auto rounded-xl object-contain bg-black/[0.03] dark:bg-white/[0.04] transition-transform duration-300 hover:scale-[1.02]"
+                sizes="(max-width: 768px) 100vw, 300px"
               />
             </div>
+            <p
+              className={`mt-2 max-w-[300px] text-center text-xs leading-snug px-1 ${
+                isDarkMode ? "text-solarized-base00" : "text-solarized-base01"
+              }`}
+            >
+              Add your photo in /public/images
+            </p>
           </div>
 
           <div className="md:col-span-8 w-full min-w-0 max-w-3xl">
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4 sm:mb-5 theme-primary scroll-mt-24">
-              About Me
+              About Usagi
             </h3>
+            <p className="text-sm sm:text-base theme-text opacity-90 mb-4 sm:mb-5 not-italic">
+              <span className="font-medium">Chiikawa</span> (ちいかわ) ·{" "}
+              <span className="font-medium">Usagi</span> (うさぎ, &quot;rabbit&quot;)
+            </p>
 
             <div className="space-y-4 sm:space-y-5 text-sm sm:text-base lg:text-lg text-left leading-relaxed text-pretty theme-text">
               <p>
-                I am <span className="font-semibold">Usagi</span> (うさぎ) — the
-                loud, carrot-loving rabbit from{" "}
-                <span className="font-semibold">Chiikawa</span> (ちいかわ) by
-                Nagano — used here only as a{" "}
-                <span className="font-semibold">template persona</span>. In real
-                life, replace this with your name and story. The silly school
-                name{" "}
-                <span className="font-semibold">Carrot Valley Institute</span>{" "}
-                and <span className="font-semibold">Example City</span> are
-                placeholders too.
+                <span className="font-semibold">Usagi</span> is a small yellow
+                rabbit and one of the core characters in{" "}
+                <span className="font-semibold">Chiikawa</span>, the manga and
+                anime series by <span className="font-semibold">Nagano</span>.
+                They wander the same cozy, sometimes strange world as{" "}
+                <span className="font-semibold">Chiikawa</span> and{" "}
+                <span className="font-semibold">Hachiware</span>, showing up as
+                a loud, chaotic friend who still feels unmistakably part of the
+                trio.
               </p>
 
               <p>
-                My work focuses on{" "}
-                <span className="font-semibold theme-secondary">
-                  reliable web services
-                </span>{" "}
-                and{" "}
-                <span className="font-semibold theme-secondary">
-                  thoughtful product UX
-                </span>
-                . I like shipping end-to-end features with{" "}
-                <span className="font-medium theme-primary">
-                  React on the client, a typed API layer, and a solid database
-                  underneath
-                </span>
-                — swap this stack for whatever you actually use.
+                Personality-wise, Usagi is playful and mischievous—often
+                teasing Chiikawa or stirring the pot—yet surprisingly steady when
+                things get serious. They rarely speak in full sentences; instead
+                they chatter in simple sounds and exclamations fans recognize
+                from the show. That mix of goofy energy and unexpected
+                competence is a big part of their charm.
               </p>
 
               <p>
-                I have listed{" "}
-                <span className="font-semibold theme-primary">sample</span>{" "}
-                roles and projects in the timeline so the layout stays
-                interesting. Delete what you do not need and paste your true
-                milestones instead.
+                In fan lore and merch, Usagi is tied to foods like{" "}
+                <span className="font-semibold">carrots</span> and{" "}
+                <span className="font-semibold">curry rice</span>, and to silly
+                catchphrases and shouts such as &quot;ウラ&quot;—little details
+                that make the character easy to love and meme. This site uses
+                Usagi as a lighthearted theme; the timeline and tabs below are
+                sample sections you can replace with your own story and work.
               </p>
 
               <p>
-                Outside of code, the Chiikawa Usagi bit pairs well with carrots,
-                curry rice, and yelling &quot;ウラ&quot; for no reason — all
-                joke filler for this template. Use this space for your real
-                hobbies.
+                For a fuller character profile (episodes, trivia, and updates),
+                check the{" "}
+                <a
+                  href="https://chiikawa.fandom.com/wiki/Usagi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium theme-primary underline-offset-2 hover:underline"
+                >
+                  Chiikawa Wiki
+                </a>{" "}
+                on Fandom.
               </p>
               <p className="mt-4 sm:mt-5 text-sm sm:text-base not-italic">
                 <Link
