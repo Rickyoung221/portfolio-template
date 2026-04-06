@@ -70,21 +70,21 @@ export default function PostList(props) {
   return (
     <PageContainer>
       <PageTitle title="Blog" />
-      <div className="container mx-auto px-4 max-w-2xl space-y-8 text-text-light dark:text-text-dark pb-4">
+      <div className="container mx-auto px-4 max-w-2xl space-y-5 text-text-light dark:text-text-dark pb-4">
         {sections.map(({ folder, posts }) => (
           <section key={folder || "__root__"} className={panelClass}>
             {folder ? (
-              <h3 className="flex items-center gap-2.5 px-4 pt-4 pb-2 text-lg font-semibold tracking-tight transition-colors duration-300 text-solarized-base03 dark:text-solarized-base1">
+              <h3 className="flex items-center gap-2 px-4 pt-3 pb-1.5 text-base font-semibold tracking-tight transition-colors duration-300 text-solarized-base03 dark:text-solarized-base1">
                 <MdFolderOpen
-                  className="h-6 w-6 shrink-0 text-solarized-blue dark:text-solarized-accentGh"
+                  className="h-5 w-5 shrink-0 text-solarized-blue dark:text-solarized-accentGh"
                   aria-hidden
                 />
                 {folder}
               </h3>
             ) : (
-              <h3 className="flex items-center gap-2.5 px-4 pt-4 pb-2 text-lg font-semibold tracking-tight transition-colors duration-300 text-solarized-base03 dark:text-solarized-base1">
+              <h3 className="flex items-center gap-2 px-4 pt-3 pb-1.5 text-base font-semibold tracking-tight transition-colors duration-300 text-solarized-base03 dark:text-solarized-base1">
                 <MdLibraryBooks
-                  className="h-6 w-6 shrink-0 text-solarized-blue dark:text-solarized-accentGh"
+                  className="h-5 w-5 shrink-0 text-solarized-blue dark:text-solarized-accentGh"
                   aria-hidden
                 />
                 Articles
@@ -93,7 +93,7 @@ export default function PostList(props) {
             <ul
               className={`list-none ${
                 folder ? "px-2 pb-2" : "px-2 pb-2 pt-0"
-              } space-y-1`}
+              } space-y-0.5`}
               role="list"
             >
               {posts.map((post) => {
@@ -103,7 +103,7 @@ export default function PostList(props) {
                 <li key={post.id}>
                   <Link
                     href={postHrefFromSys(post._sys)}
-                    className="group flex items-center gap-3 rounded-lg px-3 py-3 transition-colors duration-200
+                    className="group flex items-center gap-3 rounded-lg px-3 py-2 transition-colors duration-200
                       text-solarized-base03 dark:text-solarized-base1
                       hover:bg-solarized-base2/80 dark:hover:bg-solarized-base03/40
                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solarized-blue dark:focus-visible:outline-solarized-accentGh"

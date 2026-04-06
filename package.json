@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "14.2.33",
+    "@tailwindcss/typography": "^0.5.19",
     "@tinacms/cli": "^2.2.1",
     "dotenv": "^17.4.0"
   }
