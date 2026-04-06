@@ -1,6 +1,23 @@
 # Template setup guide
 
-This project ships with a contact form, an optional music player, an optional **GitHub** profile card, and an optional **visitor counter** (Upstash Redis). Follow the sections below to wire them up safely. **You are responsible for complying with copyright, terms of service, and privacy laws** in your jurisdiction.
+This project ships with a contact form, an optional music player, an optional **GitHub** profile card, an optional **visitor counter** (Upstash Redis), and an optional **Tina CMS**-backed **blog** at `/posts` (Markdown under `content/post/`). Follow the sections below to wire them up safely. **You are responsible for complying with copyright, terms of service, and privacy laws** in your jurisdiction.
+
+---
+
+## Tina CMS (blog)
+
+1. Create a project at [app.tina.io](https://app.tina.io), connect this GitHub repository, and create a **read token** (`TINA_TOKEN`).
+2. Add to `.env.local` (never commit):
+
+   ```bash
+   NEXT_PUBLIC_TINA_CLIENT_ID=<from Tina dashboard>
+   TINA_TOKEN=<server token>
+   NEXT_PUBLIC_TINA_BRANCH=main
+   ```
+
+3. **Development**: `npm run dev` runs Tina’s GraphQL sidecar and Next together (`scripts/tina-dev.cjs`).
+4. **Production / Vercel**: set the same three variables in the project **Environment Variables** UI. `npm run build` runs `tinacms build` then `next build` (`scripts/tina-next-build.cjs`).
+5. **Content**: edit Markdown in `content/post/` (nested folders are supported). **Admin UI**: after a production build, open `/admin` on your site. Use **Unicode path segments** in URLs for non-ASCII folder names (do not rely on `%`-encoded folder names in the admin hash—see `src/lib/blog-path.js`).
 
 ---
 

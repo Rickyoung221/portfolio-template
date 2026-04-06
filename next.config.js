@@ -73,6 +73,11 @@ const nextConfig = {
     ],
   },
   experimental: {
+    optimizePackageImports: [
+      "react-icons",
+      "@heroicons/react",
+      "@headlessui/react",
+    ],
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
@@ -91,6 +96,10 @@ const nextConfig = {
   },
   async rewrites() {
     return [
+      {
+        source: "/admin",
+        destination: "/admin/index.html",
+      },
       {
         source: "/recaptcha/api.js",
         destination: "https://www.google.com/recaptcha/api.js",

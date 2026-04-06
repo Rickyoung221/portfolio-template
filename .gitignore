@@ -12,6 +12,10 @@
 /.next/
 /out/
 
+# Tina CMS (`tinacms dev` / `tinacms build`)
+public/admin
+tina/tina.local.json
+
 # production
 /build
 
