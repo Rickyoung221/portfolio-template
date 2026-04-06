@@ -63,6 +63,10 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com",
       },
       {
+        protocol: "https",
+        hostname: "i.redd.it",
+      },
+      {
         protocol: "http",
         hostname: "p1.music.126.net",
       },

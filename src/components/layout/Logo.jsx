@@ -3,8 +3,19 @@ import React from "react";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
 
+/** Animated GIF (use `unoptimized` so frames play). Override with NEXT_PUBLIC_SITE_LOGO_URL. */
+const defaultLogoSrc = "https://i.redd.it/k4v07rl1xt0f1.gif";
+
 const Logo = ({ isFooter = false }) => {
   const { isDarkMode } = useTheme();
+
+  const src =
+    (typeof process.env.NEXT_PUBLIC_SITE_LOGO_URL === "string" &&
+      process.env.NEXT_PUBLIC_SITE_LOGO_URL.trim()) ||
+    defaultLogoSrc;
+
+  const isRemote = /^https?:\/\//i.test(src);
+  const isGif = /\.gif(\?|$)/i.test(src);
 
   const box =
     isFooter
@@ -13,12 +24,10 @@ const Logo = ({ isFooter = false }) => {
 
   return (
     <div className="flex justify-center items-center">
-      <div
-        className={`${box} shrink-0 rounded-full overflow-hidden ring-1 ring-black/[0.08] dark:ring-white/12 shadow-sm`}
-      >
+      <div className={`${box} shrink-0`}>
         <Image
-          src="/images/site-logo.png"
-          alt="Site logo — mascot"
+          src={src}
+          alt="Site logo — Usagi (Chiikawa)"
           fill
           sizes="(max-width: 768px) 56px, 72px"
           style={{ objectFit: "cover" }}
@@ -26,6 +35,7 @@ const Logo = ({ isFooter = false }) => {
             isDarkMode ? "opacity-100" : "opacity-95"
           }`}
           priority={!isFooter}
+          unoptimized={isRemote && isGif}
         />
       </div>
     </div>
