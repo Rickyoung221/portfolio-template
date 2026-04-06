@@ -200,5 +200,6 @@ Copy `.env.example` to `.env.local` and fill values locally; confirm `.gitignore
 ## Further reading
 
 - Project overview: [README.md](../README.md)
+- Blog (links to guides in `content/post/guides/`): [BLOG.md](./BLOG.md)
 - Hero 3D model (GLB, React Three Fiber): [3D_MODEL.md](./3D_MODEL.md)
 - Music player UI and NetEase integration: `src/components/music-player/MusicPlayer/MusicPlayerProvider.jsx` and `src/app/api/netease/`

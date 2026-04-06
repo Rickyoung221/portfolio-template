@@ -20,54 +20,11 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 🐙 **GitHub** — About-page card (`GitHubStats`): public profile, summed stars on your public repos, contribution heatmap (via [ghchart.rshah.org](https://ghchart.rshah.org/)); optional PAT for higher API limits and a yearly contribution total.
 - 👀 **Visitors** — Unique-visit counter on About (`SiteVisitorStats`) with **Upstash Redis**; `VisitorTracker` in the root layout posts once per session path. Configure REST URL + token in `.env.local` (see [Template setup](docs/TEMPLATE_SETUP.md)).
 - ✉️ **Contact** — Form with Google reCAPTCHA v2; email delivery documented for EmailJS or a server route.
-- 📝 **Blog** — Optional [Tina CMS](https://tina.io) Markdown blog: listing and posts under `/posts`, visual editor at `/admin`, source files in `content/post/` (see [Blog](#blog-tina-cms) below).
+- 📝 **Blog** — Optional [Tina CMS](https://tina.io) Markdown blog (`/posts`, `/admin`, `content/post/`). Narrative docs: [Blog docs index](docs/BLOG.md) → links to `docs/` and in-repo guides under `content/post/guides/`.
 - 📚 **Content** — Data-driven education, projects, certifications/awards, and related sections (see customization list).
 - 🛠️ **Tooling** — Dynamic imports for heavier sections, optional webpack bundle analyzer (`ANALYZE=true`).
 
-📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) · [Architecture](docs/ARCHITECTURE.md) · [3D model](docs/3D_MODEL.md) · [Music player](docs/MUSIC_PLAYER.md).
-
-## Blog (Tina CMS)
-
-The site can serve a **Markdown blog** powered by Tina: pages are generated from `content/post/`, with optional **visual editing** and cloud indexing when you connect [Tina Cloud](https://app.tina.io) to this repository.
-
-### What you get
-
-| URL | Purpose |
-| --- | --- |
-| `/posts` | Index: posts grouped by subfolder under `content/post/` |
-| `/posts/…` | Single post (path mirrors file path, e.g. `content/post/guides/tina-blog.md` → `/posts/guides/tina-blog`) |
-| `/admin` | Tina admin UI (after configuring env; dev runs Tina’s GraphQL sidecar with `npm run dev`) |
-
-Media uploads from the admin go to **`public/uploads/`** (see `tina/config.js`). The schema and collections live under **`tina/`**; commit **`tina/tina-lock.json`** when the schema changes.
-
-### Environment variables
-
-Add these to **`.env.local`** (never commit; copy from [`.env.example`](.env.example)):
-
-```bash
-NEXT_PUBLIC_TINA_CLIENT_ID=<from Tina dashboard>
-TINA_TOKEN=<read token from Tina>
-NEXT_PUBLIC_TINA_BRANCH=main   # optional; branch Tina indexes
-```
-
-Short reference: [Template setup → Tina CMS](docs/TEMPLATE_SETUP.md#tina-cms-blog).
-
-### Commands
-
-- **`npm run dev`** — Starts Tina’s GraphQL sidecar and Next.js together (`scripts/tina-dev.cjs`). Default GraphQL port is **4001**.
-- **`npm run build`** — Runs **`tinacms build`** then **`next build`** (`scripts/tina-next-build.cjs`). Requires `NEXT_PUBLIC_TINA_CLIENT_ID` and `TINA_TOKEN` for a full cloud build.
-- **`npm run build:local`** — Local/offline-friendly variant (see `package.json`) when you need to build without full Tina Cloud checks.
-
-### Tutorials (in-repo)
-
-Step-by-step guides ship as Markdown posts so you can read them **in the app** after `npm run dev`, or in the repo:
-
-| Topic | File | On the site (dev / prod) |
-| --- | --- | --- |
-| **Tina blog setup** (env, deploy, troubleshooting) | [`content/post/guides/tina-blog.md`](content/post/guides/tina-blog.md) | `/posts/guides/tina-blog` |
-| **All setup guides** (contact, music, visitors, Vercel env, etc.) | [`content/post/guides/setup-hub.md`](content/post/guides/setup-hub.md) | `/posts/guides/setup-hub` |
-
-Unicode or non-ASCII paths in folder names are supported; URL handling is documented in **`src/lib/blog-path.js`**.
+📖 **Documentation:** [Template setup](docs/TEMPLATE_SETUP.md) · [Blog (index)](docs/BLOG.md) · [Architecture](docs/ARCHITECTURE.md) · [3D model](docs/3D_MODEL.md) · [Music player](docs/MUSIC_PLAYER.md).
 
 ## What to customize first
 
@@ -81,8 +38,8 @@ Unicode or non-ASCII paths in folder names are supported; URL handling is docume
 8. **`src/data/projectData.js`** — Projects and links.
 9. **`src/data/tabData.js`** — Certifications and awards (if used).
 10. **`src/data/siteMeta.js`** — Launch date and optional visitor-count display offset (About visitor stats card).
-11. **`.env.local`** — `NEXT_PUBLIC_GITHUB_USERNAME`, optional `GITHUB_TOKEN`; `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` for the visitor counter; optional Tina keys for the blog (see [Blog](#blog-tina-cms) and [Template setup](docs/TEMPLATE_SETUP.md)).
-12. **`content/post/`** — Blog posts (Markdown with front matter). Nested folders become sections on `/posts`. Without Tina env vars, you can still edit files locally; production builds and `/admin` need a [Tina Cloud](https://app.tina.io) project.
+11. **`.env.local`** — `NEXT_PUBLIC_GITHUB_USERNAME`, optional `GITHUB_TOKEN`; `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` for the visitor counter; optional Tina keys for the blog ([Blog docs index](docs/BLOG.md), [Template setup](docs/TEMPLATE_SETUP.md)).
+12. **`content/post/`** — Blog posts; see [Blog docs index](docs/BLOG.md) for routes, `tina/`, and links to the setup guides.
 
 Placeholder SVGs: `public/images/` (`avatar-placeholder.svg`, `logo-template.svg`, `school-placeholder.svg`, `experience/placeholder-company.svg`).
 
@@ -128,8 +85,8 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 
 ### Documentation (this repository)
 
-- [Template setup](docs/TEMPLATE_SETUP.md) — Tina blog, contact (reCAPTCHA, EmailJS, `/api/email/send`), NetEase player, GitHub stats, Upstash visitor counter, environment variables, copyright.
-- Blog walkthrough (same content as the `/posts/guides/tina-blog` article): [`content/post/guides/tina-blog.md`](content/post/guides/tina-blog.md).
+- [Template setup](docs/TEMPLATE_SETUP.md) — Contact (reCAPTCHA, EmailJS, `/api/email/send`), NetEase player, GitHub stats, Upstash visitor counter, Tina blog (short section), environment variables, copyright.
+- [Blog (index)](docs/BLOG.md) — Pointers to [`content/post/guides/tina-blog.md`](content/post/guides/tina-blog.md), [`setup-hub.md`](content/post/guides/setup-hub.md), and on-site URLs under `/posts/guides/…`.
 - [Architecture](docs/ARCHITECTURE.md) — Routes, API map, Mermaid diagrams.
 - [3D model](docs/3D_MODEL.md) — GLB workflow, scene setup, performance.
 - [Music player](docs/MUSIC_PLAYER.md) — UI-oriented notes (NetEase operations covered in template setup).
