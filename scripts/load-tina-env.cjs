@@ -137,6 +137,13 @@ function assertTinaClientId() {
   loadTinaEnv();
   const id = process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
   if (!id || id === "undefined") {
+    const ciHint =
+      process.env.GITHUB_ACTIONS === "true"
+        ? `
+  GitHub Actions: repo Settings → Secrets and variables → Actions → add repository secret
+  NEXT_PUBLIC_TINA_CLIENT_ID (and TINA_TOKEN for builds). See .github/workflows/node.js.yml
+`
+        : "";
     console.error(`
 Missing NEXT_PUBLIC_TINA_CLIENT_ID (Tina Admin login needs this on process.env).
 
@@ -144,7 +151,7 @@ Fix one of:
   1) In .env.local add a single line (no quotes):
      NEXT_PUBLIC_TINA_CLIENT_ID=your-uuid-from-app.tina.io
   2) Copy tina/tina.local.example.json → tina/tina.local.json and set "clientId".
-
+${ciHint}
 Then run: npm run dev
 `);
     process.exit(1);
