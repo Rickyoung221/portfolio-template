@@ -2,7 +2,6 @@
 
 import { tinaField, useTina } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-
 export default function Post(props) {
   const { data } = useTina({
     query: props.query,

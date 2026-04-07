@@ -135,6 +135,8 @@ Without a token, GitHub’s **anonymous** REST API quota is low (per IP); builds
 
 The layout mounts `VisitorTracker`, which sends **`POST /api/visitors`** once on load. The **About** page shows `SiteVisitorStats`, which **`GET`s** the current count. Counts are stored in **Upstash Redis**; each client identifier (see below) can increment the global counter **at most once per hour** (deduplication). Code: `src/app/api/visitors/route.js`, `src/lib/redisContext.js`, `src/components/visitors/*`.
 
+Blog posts (`/posts/...`) mount **`PostEngagement`**, which uses the **same** Redis credentials: **`GET` / `POST` `/api/post-engagement/likes`** (one like per visitor IP per post, toggle off to unlike) and **`GET` / `POST` `/api/post-engagement/comments`** (newest-first list, capped at 200 per post). Code: `src/components/post-engagement/PostEngagement.jsx` (rendered from `src/app/posts/[...filename]/page.js` so the path does not depend on Tina client data), `src/app/api/post-engagement/*`.
+
 If Redis env vars are **missing**, the UI still renders but shows a short notice and **does not** increment counts.
 
 ### 1. Create an Upstash Redis database

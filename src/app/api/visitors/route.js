@@ -1,21 +1,8 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
+import { getClientIdentifier } from "@/lib/getClientIdentifier";
 import { getRedisContext, canPass } from "@/lib/redisContext";
 import formatWaitTime from "@/lib/formatWaitTime";
 import { VISITORS_COUNT_KEY, VISITOR_IP_PREFIX } from "@/lib/visitorsConstants";
-
-function getClientIdentifier() {
-  const headersList = headers();
-  const cfConnectingIp = headersList.get("cf-connecting-ip");
-  const forwardedFor = headersList.get("x-forwarded-for");
-  const realIp = headersList.get("x-real-ip");
-  return (
-    cfConnectingIp ||
-    forwardedFor?.split(",")[0]?.trim() ||
-    realIp ||
-    "anonymous"
-  );
-}
 
 export async function GET() {
   try {

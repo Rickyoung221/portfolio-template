@@ -17,6 +17,7 @@ Next.js 14 App Router. [Mermaid on GitHub](https://docs.github.com/en/get-starte
 | Route | Backend |
 |-------|---------|
 | `GET` / `POST` `/api/visitors` | Upstash Redis |
+| `GET` / `POST` `/api/post-engagement/likes`, `/api/post-engagement/comments` | Upstash Redis (blog posts) |
 | `GET` `/api/github/stats` | GitHub |
 | `/api/netease/playlist`, `/song/detail`, `/song/url`, `/lyric` | NetEase |
 
@@ -84,4 +85,4 @@ flowchart TB
 ## Notes
 
 - Home lazy-loads heavy sections (`ProjectsSection` with `ssr: false`, etc.).
-- Redis is optional; set `UPSTASH_REDIS_*` for visitors / limits. Details: [Template setup](TEMPLATE_SETUP.md).
+- Redis is optional; set `UPSTASH_REDIS_*` for visitors, per-post likes/comments, and rate limits. Details: [Template setup](TEMPLATE_SETUP.md).

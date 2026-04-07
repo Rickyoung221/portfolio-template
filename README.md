@@ -21,6 +21,7 @@ The project structure aligns with common beginner portfolio tutorials (e.g. [thi
 - 🎵 **Music** — NetEase-backed player (`/api/netease/*`): playlists, playback URLs, lyrics, quality handling, artwork; state persists across client-side navigation.
 - 🐙 **GitHub** — About-page card (`GitHubStats`): public profile, summed stars on your public repos, contribution heatmap (via [ghchart.rshah.org](https://ghchart.rshah.org/)); optional PAT for higher API limits and a yearly contribution total.
 - 👀 **Visitors** — Unique-visit counter on About (`SiteVisitorStats`) with **Upstash Redis**; `VisitorTracker` in the root layout posts once per session path. Configure REST URL + token in `.env.local` (see [Template setup](docs/TEMPLATE_SETUP.md)).
+- 💬 **Blog engagement** — Per-post likes and comments on `/posts/...` via the same Upstash Redis (`PostEngagement`, `/api/post-engagement/*`).
 - ✉️ **Contact** — Form with Google reCAPTCHA v2; email delivery documented for EmailJS or a server route.
 - 📝 **Blog** — Optional [Tina CMS](https://tina.io) Markdown blog (`/posts`, `/admin`, `content/post/`). Narrative docs: [Blog docs index](docs/BLOG.md) → links to `docs/` and in-repo guides under `content/post/guides/`.
 - 📚 **Content** — Data-driven education, projects, certifications/awards, and related sections (see customization list).
@@ -103,7 +104,7 @@ Layout patterns derive from common Next.js portfolio tutorials. [LICENSE](LICENS
 ### Service consoles (configuration)
 
 - [Google reCAPTCHA](https://www.google.com/recaptcha/admin) · [EmailJS](https://www.emailjs.com/)
-- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts)
+- [Upstash](https://console.upstash.com/) (Redis REST URL + token for visitor counts and blog likes/comments)
 - [GitHub tokens](https://github.com/settings/tokens) (optional fine-grained or classic PAT for `/api/github/stats`)
 
 ### Theme and IP
