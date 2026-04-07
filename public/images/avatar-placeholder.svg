@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-label="Profile photo placeholder">
-  <rect width="300" height="300" rx="24" fill="#eee8d5"/>
-  <circle cx="150" cy="128" r="56" fill="#ffd7a8"/>
-  <ellipse cx="150" cy="230" rx="88" ry="52" fill="#ffd7a8"/>
-  <circle cx="128" cy="118" r="8" fill="#002b36"/>
-  <circle cx="172" cy="118" r="8" fill="#002b36"/>
-  <path d="M130 148 Q150 162 170 148" fill="none" stroke="#002b36" stroke-width="4" stroke-linecap="round"/>
-  <text x="150" y="288" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#586e75">Add your photo in /public/images</text>
-</svg>
